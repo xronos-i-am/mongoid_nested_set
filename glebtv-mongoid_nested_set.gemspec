@@ -3,11 +3,11 @@ $:.push File.expand_path("../lib", __FILE__)
 require "mongoid_nested_set/version"
 
 Gem::Specification.new do |s|
-  s.name        = "mongoid_nested_set"
+  s.name        = "glebtv-mongoid_nested_set"
   s.version     = MongoidNestedSet::VERSION
-  s.authors     = ["Brandon Turner"]
+  s.authors     = ["GlebTV", "Brandon Turner"]
   s.email       = ["bt@brandonturner.net"]
-  s.homepage    = "http://github.com/thinkwell/mongoid_nested_set"
+  s.homepage    = "http://github.com/55ideas/mongoid_nested_set"
   s.summary     = %q{Nested set based tree implementation for Mongoid}
   s.description = %q{Fully featured tree implementation for Mongoid using the nested set model}
   s.licenses    = ["MIT"]
@@ -19,8 +19,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # specifiy any dependencies here; for example:
-  # s.add_development_dependency "rspec"
   s.add_runtime_dependency(%q<mongoid>, [">= 3.0.0"])
 
   s.add_development_dependency(%q<rspec>, [">= 2.7.0"])
