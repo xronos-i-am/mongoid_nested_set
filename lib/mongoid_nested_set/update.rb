@@ -239,7 +239,7 @@ module Mongoid::Acts::NestedSet
     end
 
     def mongoid_inc(criteria, field, value)
-      if criteria.method(:inc).arity == 2
+      if Mongoid::VERSION.to_i < 4
         criteria.inc(field, value)        
       else
         criteria.inc({field => value})
