@@ -2,6 +2,8 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
 require 'rr'
+require 'active_support'
+require 'active_support/deprecation'
 require 'mongoid'
 require 'mongoid_nested_set'
 require 'remarkable/mongoid'
