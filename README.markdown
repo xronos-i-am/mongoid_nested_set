@@ -1,6 +1,9 @@
 Mongoid Nested Set
 ==================
 
+[![Gem Version](https://badge.fury.io/rb/glebtv-mongoid_nested_set.png)](http://badge.fury.io/rb/glebtv-mongoid_nested_set)
+
+
 Mongoid Nested Set is an implementation of the nested set pattern for Mongoid.
 It is a port of [AwesomeNestedSet for ActiveRecord](https://github.com/galetahub/awesome_nested_set).
 It supports Mongoid 2 and Rails 3.
@@ -18,11 +21,11 @@ For more on the nested set pattern: <http://en.wikipedia.org/wiki/Nested_set_mod
 
 Install as Gem
 
-    gem install mongoid_nested_set
+    gem install glebtv-mongoid_nested_set
 
 via Gemfile
 
-    gem 'mongoid_nested_set', '0.1.3'
+    gem 'glebtv-mongoid_nested_set', '~> 0.4.2'
 
 
 ## Usage
