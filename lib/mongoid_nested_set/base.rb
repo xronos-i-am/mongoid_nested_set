@@ -1,7 +1,5 @@
 module Mongoid::Acts::NestedSet
-
   module Base
-
     # Configuration options are:
     #
     # * +:parent_field+ - field name to use for keeping the parent id (default: parent_id)
@@ -53,15 +51,7 @@ module Mongoid::Acts::NestedSet
 
         attr_accessor :skip_before_destroy
 
-        # Rails 4 no longer uses "attr_protected" and "attr_accessible" for
-        # mass assignment control by default, but this methods can be restored 
-        # by installing 'protected_attributes' gem. So here we just check
-        # accessible_attributes method presence
-        if respond_to?(:accessible_attributes) && accessible_attributes.blank?
-          attr_protected left_field_name.intern, right_field_name.intern
-        end
-
-        define_callbacks :move, :terminator => "result == false"
+        define_callbacks :move, :terminator => callback_terminator
 
         before_create  :set_default_left_and_right
         before_save    :store_new_parent
@@ -89,6 +79,15 @@ module Mongoid::Acts::NestedSet
 
       end
     end
-  end
 
+    private
+    def callback_terminator
+      if ::ActiveSupport::VERSION::STRING >= '4.1'
+        lambda { |target, result| result == false }
+      else
+        'result == false'
+      end
+    end
+  end
 end
+

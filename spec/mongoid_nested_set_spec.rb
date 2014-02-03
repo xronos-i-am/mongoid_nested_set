@@ -360,7 +360,7 @@ describe "A Mongoid::Document" do
       # Scopes
 
       it "fetches all root nodes" do
-        Node.roots.should have(2).entries
+        Node.roots.entries.size.should eq(2)
       end
 
       it "fetches all leaf nodes in order" do
@@ -376,7 +376,7 @@ describe "A Mongoid::Document" do
 
       it "fetches descendants of multiple parents" do
         parents = Node.any_in(:name => %w[Men's Dresses])
-        Node.where(:root_id=>1).descendants_of(parents).should have(5).entries
+        Node.where(:root_id=>1).descendants_of(parents).entries.size.should eq(5)
       end
 
       it "fetches self and ancestors in order" do
@@ -478,7 +478,11 @@ describe "A Mongoid::Document" do
       end
 
       it "cannot move a node to a non-existent target" do
-        @nodes[:mens].parent_id = Moped::BSON::ObjectId.new
+        if defined?(Moped::BSON)
+          @nodes[:mens].parent_id = Moped::BSON::ObjectId.new
+        else
+          @nodes[:mens].parent_id = BSON::ObjectId.new
+        end
         expect {
           @nodes[:mens].save
         }.to raise_error(Mongoid::Errors::MongoidError, /possible.*(exist|found)/)

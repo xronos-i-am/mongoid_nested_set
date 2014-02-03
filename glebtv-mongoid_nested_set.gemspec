@@ -19,11 +19,11 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency(%q<mongoid>, [">= 3.0.0"])
+  s.add_runtime_dependency 'mongoid', ">= 3.0.0"
 
-  s.add_development_dependency(%q<rspec>, [">= 2.7.0"])
-  s.add_development_dependency(%q<bundler>, [">= 1.0.21"])
-  s.add_development_dependency(%q<simplecov>)
-  s.add_development_dependency(%q<simplecov-rcov>)
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'bundler'
+  s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'simplecov-rcov'
 end
 

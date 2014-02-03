@@ -105,7 +105,11 @@ module Mongoid::Acts::NestedSet
         conditions = parents.map do |parent|
           {left_field_name => {"$gt" => parent.left}, right_field_name => {"$lt" => parent.right}}
         end
-        where("$or" => conditions)
+        if conditions.empty?
+          where({})
+        else
+          where("$or" => conditions)
+        end
       end
 
 
