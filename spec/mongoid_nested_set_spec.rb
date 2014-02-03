@@ -191,13 +191,17 @@ describe "A Mongoid::Document" do
     end
 
     it "does not allow assigning the left field" do
-      expect { Node.new.lft = 1 }.to raise_error(NameError)
-      expect { RenamedFields.new.red = 1 }.to raise_error(NameError)
+      # expect { Node.new.lft = 1 }.to raise_error(NameError)
+      # expect { RenamedFields.new.red = 1 }.to raise_error(NameError)
+      expect { Node.new.lft = 1 }.to raise_error
+      expect { RenamedFields.new.red = 1 }.to raise_error
     end
 
     it "does not allow assigning the right field" do
-      expect { Node.new.rgt = 1 }.to raise_error(NameError)
-      expect { RenamedFields.new.black = 1 }.to raise_error(NameError)
+      # expect { Node.new.rgt = 1 }.to raise_error(NameError)
+      # expect { RenamedFields.new.black = 1 }.to raise_error(NameError)
+      expect { Node.new.rgt = 1 }.to raise_error
+      expect { RenamedFields.new.black = 1 }.to raise_error
     end
 
 
