@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = MongoidNestedSet::VERSION
   s.authors     = ["GlebTV", "Brandon Turner"]
   s.email       = ["bt@brandonturner.net"]
-  s.homepage    = "http://github.com/55ideas/mongoid_nested_set"
+  s.homepage    = "http://github.com/glebtv/mongoid_nested_set"
   s.summary     = %q{Nested set based tree implementation for Mongoid}
   s.description = %q{Fully featured tree implementation for Mongoid using the nested set model}
   s.licenses    = ["MIT"]
