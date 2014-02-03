@@ -2,7 +2,7 @@ Mongoid Nested Set
 ==================
 
 [![Gem Version](https://badge.fury.io/rb/glebtv-mongoid_nested_set.png)](http://badge.fury.io/rb/glebtv-mongoid_nested_set)
-
+[![Build Status](https://travis-ci.org/55ideas/mongoid_nested_set.png?branch=master)](https://travis-ci.org/55ideas/mongoid_nested_set)
 
 Mongoid Nested Set is an implementation of the nested set pattern for Mongoid.
 It is a port of [AwesomeNestedSet for ActiveRecord](https://github.com/galetahub/awesome_nested_set).
