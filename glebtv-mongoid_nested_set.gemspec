@@ -26,5 +26,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'simplecov-rcov'
+
+  s.add_development_dependency 'rspec-expectations', "~> 2.0"
+  s.add_development_dependency 'rr'
+  s.add_development_dependency 'remarkable_mongoid'
 end
 
