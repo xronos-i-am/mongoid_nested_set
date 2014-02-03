@@ -7,7 +7,7 @@ Mongoid Nested Set
 
 Mongoid Nested Set is an implementation of the nested set pattern for Mongoid.
 It is a port of [AwesomeNestedSet for ActiveRecord](https://github.com/galetahub/awesome_nested_set).
-It supports Mongoid 2 and Rails 3.
+It supports Mongoid 3/4 and Rails 3/4.
 
 Nested Set represents hierarchies of trees in MongoDB using references rather
 than embedded documents.  A tree is stored as a flat list of documents in a
