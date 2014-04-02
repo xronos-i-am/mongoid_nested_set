@@ -28,8 +28,14 @@ module Mongoid::Acts::NestedSet
         )
       end
 
+      # scope rebuild for specified node
+      tree_scope = self.where(parent_field_name => nil)
+      if acts_as_nested_set_options[:scope] && options[:scope]
+        tree_scope = tree_scope.where( acts_as_nested_set_options[:scope] => options[:scope] )
+      end
+
       # Find root node(s)
-      root_nodes = self.where(parent_field_name => nil).asc(left_field_name).asc(right_field_name).asc(:_id).each do |root_node|
+      root_nodes = tree_scope.asc(left_field_name).asc(right_field_name).asc(:_id).each do |root_node|
         # setup index for this scope
         indices[scope.call(root_node)] ||= 0
         set_left_and_rights.call(root_node)
