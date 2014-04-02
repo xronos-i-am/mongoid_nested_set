@@ -666,7 +666,7 @@ describe "A Mongoid::Document" do
 
     context "in an adjaceny list tree" do
       before(:each) do
-        @nodes = create_clothing_nodes(Node)
+        @nodes = create_clothing_nodes.merge(create_electronics_nodes)
         @nodes.each_value { |node| node.test_set_attributes(:rgt => nil) }
         persist_nodes(@nodes)
       end
@@ -682,6 +682,25 @@ describe "A Mongoid::Document" do
         @nodes[:womens]  .reload.should have_nestedset_pos(10, 21)
         @nodes[:suits]   .reload.should have_nestedset_pos( 3,  8)
         @nodes[:skirts]  .reload.should have_nestedset_pos(17, 18)
+      end
+
+      it "can rebuild nested set properties for specified scope" do
+        Node.rebuild!( scope: 2 )
+        
+        root = Node.where( root_id: 1 ).root
+        root.should be_a(Node)
+        root.rgt.should == nil
+        
+        root = Node.where( root_id: 2 ).root
+        root.should be_a(Node)
+        root.name.should == 'Electronics'
+
+        @nodes[:electronics].reload.should have_nestedset_pos( 1, 20)
+        @nodes[:televisions].reload.should have_nestedset_pos( 2,  9)
+        @nodes[:tube]       .reload.should have_nestedset_pos( 3,  4)
+        @nodes[:portable]   .reload.should have_nestedset_pos(10, 19)
+        @nodes[:mp3]        .reload.should have_nestedset_pos(11, 14)
+        @nodes[:flash]      .reload.should have_nestedset_pos(12, 13)
       end
 
     end
