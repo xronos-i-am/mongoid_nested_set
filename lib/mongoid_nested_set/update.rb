@@ -125,33 +125,32 @@ module Mongoid::Acts::NestedSet
           left += width
         end
 
-        scope_class.mongo_session.with(:safe => true) do |session|
-          collection = session[scope_class.collection_name]
-          scope = nested_set_scope.remove_order_by
+        client = scope_class.mongo_client
+        collection = client[scope_class.collection_name]
+        scope = nested_set_scope.remove_order_by
 
-          # allocate space for new move
-          collection.find(
-            scope.gte(left_field_name => bound).selector
-          ).update_all("$inc" => { left_field_name => width })
+        # allocate space for new move
+        collection.find(
+          scope.gte(left_field_name => bound).selector
+        ).update_many("$inc" => { left_field_name => width })
 
-          collection.find(
-            scope.gte(right_field_name => bound).selector
-          ).update_all("$inc" => { right_field_name => width })
+        collection.find(
+          scope.gte(right_field_name => bound).selector
+        ).update_many("$inc" => { right_field_name => width })
 
-          # move the nodes
-          collection.find(
-            scope.and(left_field_name => {"$gte" => left}, right_field_name => {"$lt" => left + width}).selector
-          ).update_all("$inc" => { left_field_name => distance, right_field_name => distance })
+        # move the nodes
+        collection.find(
+          scope.and(left_field_name => {"$gte" => left}, right_field_name => {"$lt" => left + width}).selector
+        ).update_many("$inc" => { left_field_name => distance, right_field_name => distance })
 
-          # remove the hole
-          collection.find(
-            scope.gt(left_field_name => right).selector
-          ).update_all("$inc" => { left_field_name => -width })
+        # remove the hole
+        collection.find(
+          scope.gt(left_field_name => right).selector
+        ).update_many("$inc" => { left_field_name => -width })
 
-          collection.find(
-            scope.gt(right_field_name => right).selector
-          ).update_all("$inc" => { right_field_name => -width })
-        end
+        collection.find(
+          scope.gt(right_field_name => right).selector
+        ).update_many("$inc" => { right_field_name => -width })
 
         self.mongoid_set(parent_field_name, new_parent)
         self.reload_nested_set
@@ -188,7 +187,7 @@ module Mongoid::Acts::NestedSet
     def update_self_and_descendants_depth
       if depth?
         scope_class.each_with_level(self_and_descendants) do |node, level|
-          node.with(:safe => true).mongoid_set(:depth, level) unless node.depth == level
+          node.mongoid_set(:depth, level) unless node.depth == level
         end
         self.reload
       end
@@ -214,12 +213,12 @@ module Mongoid::Acts::NestedSet
       # update lefts and rights for remaining nodes
       diff = right - left + 1
 
-      c = scope_class.with(:safe => true).where(
+      c = scope_class.where(
         nested_set_scope.where(left_field_name.to_sym.gt => right).selector
       )
       mongoid_inc(c, left_field_name, -diff)
 
-      c = scope_class.with(:safe => true).where(
+      c = scope_class.where(
         nested_set_scope.where(right_field_name.to_sym.gt => right).selector
       )
       mongoid_inc(c, right_field_name, -diff)

@@ -19,16 +19,15 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'mongoid', [">= 3.1.0", "< 4.1"]
+  s.add_runtime_dependency 'mongoid', [">= 5.0.0.beta", "< 6.0"]
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'simplecov-rcov'
+  s.add_development_dependency 'mongoid-rspec', '2.3.0.beta'
 
-  s.add_development_dependency 'rspec-expectations', "~> 2.0"
-  s.add_development_dependency 'rr'
-  s.add_development_dependency 'remarkable_mongoid'
+  s.add_development_dependency 'rspec-expectations', "~> 3.3"
 end
 
